@@ -3,175 +3,308 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>wz333 — Apps</title>
-<meta name="description" content="Small iOS apps by wz333.">
+<title>wz333</title>
+<meta name="description" content="Small games for learning to read Japanese and Chinese, by wz333.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  /* The page is quiet so the two apps can be loud: each panel wears its own
+     app's colours, taken from its icon. */
   :root {
-    --page: #F7F4EC;
-    --card: #FFFFFF;
-    --ink: #1B1A17;
-    --body: #3A3833;
-    --muted: #6B675E;
-    --rule: rgba(27,26,23,0.10);
-    --shadow: rgba(27,26,23,0.06);
+    --page: #EFEEEA;
+    --ink: #17161C;
+    --body: #3B3944;
+    --muted: #66636F;
+    --rule: #D6D4CE;
+
+    /* Kana Pop: riso paper, pink and blue plates, purple overprint. */
+    --kp-paper: #E9E5DB;
+    --kp-card: #F8F4EB;
+    --kp-ink: #1A1533;
+    --kp-pink: #FF3D8A;
+    --kp-blue: #1E44C8;
+    --kp-over: #3A1D78;
+    --kp-text: #2A2350;
+
+    /* Hanzi Crush: vermilion ground, paper tiles. */
+    --hc-red: #C9533C;
+    --hc-red-deep: #A63F2B;
+    --hc-tile: #FBF6EE;
+    --hc-ink: #2B1A15;
+    --hc-on-red: #FFF7EE;
+
+    --display: "Anton", "Impact", "Arial Narrow", sans-serif;
+    --text: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --cjk-ja: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    --cjk-zh: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --page: #14130F;
-      --card: #1F1D18;
-      --ink: #F7F4EC;
-      --body: #DCD8CC;
-      --muted: #9A9587;
-      --rule: rgba(247,244,236,0.10);
-      --shadow: rgba(0,0,0,0.35);
+      --page: #15141A;
+      --ink: #F1EFE9;
+      --body: #D2CFD8;
+      --muted: #9C99A6;
+      --rule: #2C2A33;
+
+      --kp-paper: #15122B;
+      --kp-card: #211C40;
+      --kp-ink: #F2EBDC;
+      --kp-pink: #FF5C9E;
+      --kp-blue: #7E9DFF;
+      --kp-over: #4A2A96;
+      --kp-text: #E4DECF;
+
+      --hc-red: #9E3F2D;
+      --hc-red-deep: #7C2F21;
+      --hc-tile: #2A2220;
+      --hc-ink: #F6ECE2;
+      --hc-on-red: #FFF2E6;
     }
   }
+
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    padding: 64px 20px 80px;
+    padding: 56px 16px 64px;
     background: var(--page);
     color: var(--body);
-    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font: 17px/1.55 var(--text);
   }
-  main { max-width: 640px; margin: 0 auto; }
-  header { margin-bottom: 40px; }
-  h1 {
+  main { max-width: 720px; margin: 0 auto; }
+  a { color: inherit; }
+  a:focus-visible {
+    outline: 3px solid var(--kp-blue);
+    outline-offset: 3px;
+  }
+
+  /* ---- Masthead ---- */
+  .masthead { margin: 0 0 44px; }
+  .masthead h1 {
+    font: 400 clamp(64px, 17vw, 112px)/0.9 var(--display);
+    letter-spacing: 0.01em;
     color: var(--ink);
-    font-size: 28px;
-    letter-spacing: -0.01em;
-    margin: 0 0 8px;
+    margin: 0 0 16px;
   }
-  header p { color: var(--muted); font-size: 15px; margin: 0; }
+  .masthead p {
+    margin: 0;
+    max-width: 30em;
+    font-size: 19px;
+    color: var(--body);
+  }
 
-  .apps { display: flex; flex-direction: column; gap: 14px; }
-
+  /* ---- App panels ---- */
+  .apps { display: grid; gap: 28px; }
   .app {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    background: var(--card);
-    border: 1px solid var(--rule);
-    border-radius: 16px;
-    padding: 20px 22px;
-    box-shadow: 0 1px 2px var(--shadow);
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    padding: 28px 28px 30px;
   }
-  .glyph {
-    flex: none;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+  .app-head {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    overflow: hidden;
+    gap: 16px;
+    margin-bottom: 14px;
+    position: relative;
   }
-  .glyph img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .glyph.paint { background: linear-gradient(160deg, #2E2E2E, #000); }
-
-  .app-body { flex: 1; min-width: 0; }
-  .app-title {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
+  .app-head img {
+    width: 64px;
+    height: 64px;
+    border-radius: 15px;
+    flex: none;
+    display: block;
   }
-  .app-title h2 {
-    font-size: 17px;
-    color: var(--ink);
+  .app h2 {
+    font: 400 clamp(38px, 9vw, 54px)/0.95 var(--display);
+    letter-spacing: 0.01em;
     margin: 0;
   }
-  .badge {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 2px 8px;
+  .app p {
+    position: relative;
+    margin: 0 0 22px;
+    max-width: 24em;
+    font-size: 18px;
   }
-  .app-desc {
-    color: var(--muted);
-    font-size: 14px;
-    margin: 4px 0 12px;
+  .links {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 14px;
   }
-  .app-links { display: flex; gap: 16px; flex-wrap: wrap; }
-  .app-links a {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink);
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 18px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
     text-decoration: none;
-    border-bottom: 1px solid var(--rule);
+    transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.14s cubic-bezier(0.2, 0.8, 0.3, 1);
   }
-  .app-links a:hover { border-bottom-color: var(--ink); }
+  .text-link {
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    padding: 10px 2px;
+  }
 
-  footer {
-    margin-top: 48px;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    color: var(--muted);
-    font-size: 13px;
+  /* The giant glyph behind each panel: the character the app is about. */
+  .glyph {
+    position: absolute;
+    right: -6px;
+    bottom: -38px;
+    font-size: 220px;
+    line-height: 1;
+    font-weight: 800;
+    pointer-events: none;
+    user-select: none;
   }
-  footer a { color: var(--muted); }
+
+  /* Kana Pop: printed in two plates that do not quite register. The panel
+     keeps overflow visible for its offset ghost, so the glyph is clipped by
+     an inner layer instead. */
+  .kanapop {
+    background: var(--kp-paper);
+    color: var(--kp-text);
+    border: 3px solid var(--kp-ink);
+    box-shadow: 7px 7px 0 var(--kp-over);
+    overflow: visible;
+    margin-right: 7px;
+  }
+  .kanapop .clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 19px;
+    pointer-events: none;
+  }
+  .kanapop h2 { color: var(--kp-ink); }
+  .kanapop .glyph {
+    font-family: var(--cjk-ja);
+    color: var(--kp-pink);
+    text-shadow: 7px 5px 0 var(--kp-blue);
+    opacity: 0.22;
+  }
+  .kanapop .button {
+    background: var(--kp-card);
+    color: var(--kp-ink);
+    border: 2.5px solid var(--kp-ink);
+    box-shadow: 4px 4px 0 var(--kp-over);
+  }
+  /* Pressing snaps the plates into register, as the app's buttons do. */
+  .kanapop .button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--kp-over);
+  }
+  .kanapop .text-link { color: var(--kp-ink); text-decoration-color: var(--kp-pink); }
+
+  /* Hanzi Crush: a paper tile laid on vermilion. */
+  .hanzi {
+    background: var(--hc-red);
+    color: var(--hc-on-red);
+  }
+  .hanzi h2 { color: var(--hc-on-red); }
+  .hanzi .glyph {
+    font-family: var(--cjk-zh);
+    color: var(--hc-on-red);
+    opacity: 0.14;
+  }
+  .hanzi .button {
+    background: var(--hc-tile);
+    color: var(--hc-ink);
+    box-shadow: 0 4px 0 var(--hc-red-deep);
+  }
+  .hanzi .button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--hc-red-deep);
+  }
+  .hanzi .text-link { color: var(--hc-on-red); text-decoration-color: rgba(255, 247, 238, 0.55); }
+  .hanzi a:focus-visible { outline-color: var(--hc-on-red); }
+
+  /* ---- Footer ---- */
+  footer {
+    margin-top: 44px;
+    padding-top: 22px;
+    border-top: 2px solid var(--rule);
+    color: var(--muted);
+    font-size: 16px;
+  }
+  footer p { margin: 0 0 6px; }
+  footer a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 480px) {
+    body { padding-top: 40px; }
+    .app { padding: 22px 20px 24px; }
+    .app-head img { width: 54px; height: 54px; border-radius: 13px; }
+    .glyph { font-size: 170px; bottom: -28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .button { transition: none; }
+  }
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <h1>Hi, I'm wz333 👋</h1>
-    <p>I make small iOS apps, the ones I wished already existed.</p>
+  <header class="masthead">
+    <h1>wz333</h1>
+    <p>I make small games for learning to read Japanese and Chinese, one tile at a time.</p>
   </header>
 
   <div class="apps">
-    <div class="app">
-      <div class="glyph"><img src="icons/hanzi-crush.png" alt="Hanzi Crush icon"></div>
-      <div class="app-body">
-        <div class="app-title">
-          <h2>Hanzi Crush</h2>
-        </div>
-        <p class="app-desc">Match tiles that share a Mandarin pronunciation, across four tiers of difficulty.</p>
-        <div class="app-links">
-          <a href="https://apps.apple.com/app/id6805753627">App Store</a>
-          <a href="https://wz333.app/hanzi-crush-support/">Support</a>
-        </div>
+    <section class="app kanapop" aria-labelledby="kanapop-name">
+      <div class="clip" aria-hidden="true"><span class="glyph">か</span></div>
+      <div class="app-head">
+        <img src="icons/kanapop.png" alt="">
+        <h2 id="kanapop-name">Kana Pop</h2>
       </div>
-    </div>
+      <p>Learn hiragana and katakana by matching them, fast.</p>
+      <div class="links">
+        <a class="button" href="https://apps.apple.com/app/kana-pop/id6806635652">App Store</a>
+        <a class="button" href="https://play.google.com/store/apps/details?id=com.wz333.kanapop">Google Play</a>
+        <a class="text-link" href="https://wz333.app/kanapop-support/android">Android APK</a>
+        <a class="text-link" href="https://wz333.app/kanapop-support/">Support</a>
+      </div>
+    </section>
 
-    <div class="app">
-      <div class="glyph"><img src="icons/kanapop.png" alt="KanaPop icon"></div>
-      <div class="app-body">
-        <div class="app-title">
-          <h2>KanaPop</h2>
-        </div>
-        <p class="app-desc">Learn Japanese kana through fast pattern matching.</p>
-        <div class="app-links">
-          <a href="https://apps.apple.com/us/app/kana-pop/id6806635652">App Store</a>
-          <a href="https://wz333.app/kanapop-support/">Support</a>
-        </div>
+    <section class="app hanzi" aria-labelledby="hanzi-name">
+      <span class="glyph" aria-hidden="true">碰</span>
+      <div class="app-head">
+        <img src="icons/hanzi-crush.png" alt="">
+        <h2 id="hanzi-name">Hanzi Crush</h2>
       </div>
-    </div>
+      <p>Match characters that share a Mandarin pronunciation, across four tiers of difficulty.</p>
+      <div class="links">
+        <a class="button" href="https://apps.apple.com/app/id6805753627">App Store</a>
+        <a class="text-link" href="https://wz333.app/hanzi-crush-support/">Support</a>
+      </div>
+    </section>
 
-    <div class="app">
-      <div class="glyph paint">🎨</div>
-      <div class="app-body">
-        <div class="app-title">
-          <h2>paint2K</h2>
-          <span class="badge">Coming soon</span>
-        </div>
-        <p class="app-desc">A pixel-art drawing app, drawn the way drawing programs used to be.</p>
-        <div class="app-links">
-          <a href="https://wz333.app/paint2k-legal/">Support</a>
-        </div>
+    <!-- paint2K, hidden until it ships. To bring it back, restore this panel
+         and give it a style of its own beside .kanapop and .hanzi.
+    <section class="app paint2k">
+      <h2>paint2K</h2>
+      <p>A pixel-art drawing app, drawn the way drawing programs used to be.</p>
+      <div class="links">
+        <a class="text-link" href="https://wz333.app/paint2k-legal/">Support</a>
       </div>
-    </div>
+    </section>
+    -->
   </div>
 
   <footer>
-    <p>Say hi: <a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a> · If something here made your day a little better, <a href="https://ko-fi.com/venusfly96">buy me a coffee ↗</a></p>
+    <p>Say hi at <a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>.</p>
+    <p>If one of these made your day a little better, <a href="https://ko-fi.com/venusfly96">buy me a coffee</a>.</p>
   </footer>
 </main>
 </body>
