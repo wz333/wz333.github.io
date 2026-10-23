@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>wz333</title>
-<meta name="description" content="Small games for learning to read Japanese and Chinese, by wz333.">
+<meta name="description" content="wz333 builds weird little things, like Kana Pop and Hanzi Crush.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap" rel="stylesheet">
@@ -81,6 +81,7 @@
 
   /* ---- Masthead ---- */
   .masthead { margin: 0 0 44px; }
+  .topbar { margin-bottom: 8px !important; }
   .masthead h1 {
     font: 400 clamp(64px, 17vw, 112px)/0.9 var(--display);
     letter-spacing: 0.01em;
@@ -256,9 +257,11 @@
 </head>
 <body>
 <main>
+  <div class="topbar end"><div data-lang-switch></div></div>
+
   <header class="masthead">
     <h1>wz333</h1>
-    <p>I make small games for learning to read Japanese and Chinese, one tile at a time.</p>
+    <p data-i18n="tagline">I build weird little things.</p>
   </header>
 
   <div class="apps">
@@ -268,12 +271,12 @@
         <img src="icons/kanapop.png" alt="">
         <h2 id="kanapop-name">Kana Pop</h2>
       </div>
-      <p>Learn hiragana and katakana by matching them, fast.</p>
+      <p data-i18n="kanapopDesc">Learn hiragana and katakana by matching them, fast.</p>
       <div class="links">
         <a class="button" href="https://apps.apple.com/app/kana-pop/id6806635652">App Store</a>
         <a class="button" href="https://play.google.com/store/apps/details?id=com.wz333.kanapop">Google Play</a>
         <a class="text-link" href="https://wz333.app/kanapop-support/android">Android APK</a>
-        <a class="text-link" href="https://wz333.app/kanapop-support/">Support</a>
+        <a class="text-link" href="https://wz333.app/kanapop-support/" data-i18n="support">Support</a>
       </div>
     </section>
 
@@ -283,10 +286,10 @@
         <img src="icons/hanzi-crush.png" alt="">
         <h2 id="hanzi-name">Hanzi Crush</h2>
       </div>
-      <p>Match characters that share a Mandarin pronunciation, across four tiers of difficulty.</p>
+      <p data-i18n="hanziDesc">Match characters that share a Mandarin pronunciation, across four tiers of difficulty.</p>
       <div class="links">
         <a class="button" href="https://apps.apple.com/app/id6805753627">App Store</a>
-        <a class="text-link" href="https://wz333.app/hanzi-crush-support/">Support</a>
+        <a class="text-link" href="https://wz333.app/hanzi-crush-support/" data-i18n="support">Support</a>
       </div>
     </section>
 
@@ -303,9 +306,39 @@
   </div>
 
   <footer>
-    <p>Say hi at <a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>.</p>
-    <p>If one of these made your day a little better, <a href="https://ko-fi.com/venusfly96">buy me a coffee</a>.</p>
+    <p data-i18n-html="sayHi">Say hi at <a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>.</p>
+    <p data-i18n-html="coffee">If one of these made your day a little better, <a href="https://ko-fi.com/venusfly96">buy me a coffee</a>.</p>
   </footer>
 </main>
+
+<script>
+window.KP_STRINGS = {
+  'en': {
+    tagline: 'I build weird little things.',
+    kanapopDesc: 'Learn hiragana and katakana by matching them, fast.',
+    hanziDesc: 'Match characters that share a Mandarin pronunciation, across four tiers of difficulty.',
+    support: 'Support',
+    sayHi: 'Say hi at <a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>.',
+    coffee: 'If one of these made your day a little better, <a href="https://ko-fi.com/venusfly96">buy me a coffee</a>.'
+  },
+  'zh-Hans': {
+    tagline: '我做一些奇奇怪怪的小东西。',
+    kanapopDesc: '通过快速配对，学会平假名和片假名。',
+    hanziDesc: '配对普通话读音相同的汉字，共分四个难度。',
+    support: '支持',
+    sayHi: '打个招呼：<a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>',
+    coffee: '如果它们让你的一天变得好一点，可以<a href="https://ko-fi.com/venusfly96">请我喝杯咖啡</a>。'
+  },
+  'zh-Hant': {
+    tagline: '我做一些奇奇怪怪的小東西。',
+    kanapopDesc: '透過快速配對，學會平假名和片假名。',
+    hanziDesc: '配對中文讀音相同的漢字，共分四個難度。',
+    support: '支援',
+    sayHi: '打個招呼：<a href="mailto:echoooh.support@gmail.com">echoooh.support@gmail.com</a>',
+    coffee: '如果它們讓你的一天變得好一點，可以<a href="https://ko-fi.com/venusfly96">請我喝杯咖啡</a>。'
+  }
+};
+</script>
+<script src="lang.js"></script>
 </body>
 </html>
